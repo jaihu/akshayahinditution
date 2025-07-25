@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hindi Gyan - Akshaya Hindi Tuition Center</title>
+    <style>
+        /* CSS Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+        .header {
+            background-color: #f8f1e9;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .logo {
+            font-size: 2.5em;
+            color: #e67e22;
+            font-weight: bold;
+        }
+        .tagline {
+            font-style: italic;
+            color: #666;
+        }
+        .nav {
+            background-color: #e67e22;
+            padding: 15px 0;
+        }
+        .nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .nav li {
+            margin: 0 20px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('hindi-class.jpg');
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .cta-button {
+            background-color: #e67e22;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .features {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        .feature {
+            width: 30%;
+            min-width: 300px;
+            margin-bottom: 30px;
+        }
+        .testimonials {
+            background-color: #f8f1e9;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        /* Enrollment Form Styles */
+        .enrollment-form {
+            display: none;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #f8f1e9;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .enrollment-form h2 {
+            color: #e67e22;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-submit {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-submit:hover {
+            background-color: #d35400;
+        }
+        .success-message {
+            display: none;
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">AKSHAYA HINDI TUTION CENTER</div>
+        <div class="tagline">Online Clasess</div>
+    </header>
+    
+    <nav class="nav">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#teachers">Teachers</a></li>
+            <li><a href="#methodology">Methodology</a></li>
+            <li><a href="#Success Stories">Success Stories</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <section class="hero" id="home">
+        <h1>Excel in Hindi with Expert Guidance</h1>
+        <p>Personalized Hindi tuition for all levels - from beginners to advanced learners</p>
+        <button class="cta-button" id="enrollBtn">Enroll Now</button>
+    </section>
+
+    
+    <!-- Enrollment Form -->
+    <div class="enrollment-form" id="enrollmentForm">
+        <h2>Student Enrollment Form</h2>
+        <form id="studentForm">
+            <div class="form-group">
+                <label for="studentName">Student Full Name*</label>
+                <input type="text" id="studentName" name="studentName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="parentName">Parent/Guardian Name*</label>
+                <input type="text" id="parentName" name="parentName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">Student Age*</label>
+                <input type="number" id="age" name="age" min="5" max="25" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="grade">Current Grade/Class</label>
+                <input type="text" id="grade" name="grade">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address*</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number*</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Full Address</label>
+                <textarea id="address" name="address" rows="3"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="course">Select Course*</label>
+                <select id="course" name="course" required>
+                    <option value="">-- Select a Course --</option>
+                    <option value="Basic Hindi">Basic Hindi</option>
+                    <option value="CBSE Curriculum">CBSE Curriculum</option>
+                    <option value="ICSE Curriculum">ICSE Curriculum</option>
+                    <option value="Advanced Hindi">Advanced Hindi</option>
+                    <option value="Competitive Exam Prep">Competitive Exam Preparation</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="experience">Previous Hindi Learning Experience</label>
+                <textarea id="experience" name="experience" rows="3" placeholder="Briefly describe any previous Hindi learning experience"></textarea>
+            </div>
+            
+            <button type="submit" class="form-submit">Submit Enrollment</button>
+        </form>
+        <div class="success-message" id="successMessage">
+            Thank you for your enrollment! We will contact you shortly.
+        </div>
+    </div>
+    
+    <!-- Rest of your website content -->
+    <section class="section" id="courses">
+        <h2>Our Courses</h2>
+        <div class="features">
+            <div class="feature">
+                <h3><p style="color :orange;">Basic Hindi</p></h3>
+                <p>For complete beginners to build foundation in reading, writing and speaking</p>
+            </div>
+            <div class="feature">
+                <h3><p style="color :orange;">School Curriculum</p></h3>
+                <p>CBSE, ICSE, and State Board syllabus support for grades 1-9</p>
+            </div>
+            <div class="feature">
+                <h3><p style="color :orange;">Advanced Hindi</p></h3>
+                <p style="color :purple;"><b>Basic level</b></p>Prathamic<b><p style="color :purple;">Intermediate level</b></p>Madhyama<b><p style="color :purple;">National Language level</p></b>Rashtrabhasha, Praveshika, Visharad Poorvardh, Visharad Uttarardh, Praveen<br><b><p style="color :purple;">Highest level</b></p> Nishnath<br>
+
+            </div>
+        </div>
+    </section>
+    
+<hr class="section-divider">
+
+ <section id="methodology">
+        <h2>Our Methodology</h2>
+        <p>We use proven, modern teaching techniques to ensure fast and effective learning.</p>
+        
+        <h3>Key Features:</h3>
+        <ul>
+            <li><strong>Communicative Approach</strong> - Focus on real-life conversations from day one</li>
+            <li><strong>Blended Learning</strong> - Interactive apps, videos, and live classes</li>
+            <li><strong>Spaced Repetition</strong> - Reinforce vocabulary with smart flashcards</li>
+            <li><strong>Task-Based Learning</strong> - Practical tasks to build confidence</li>
+            <li><strong>Cultural Immersion</strong> - Learn language in cultural context</li>
+        </ul>
+        
+        <h3>Our Teaching Process:</h3>
+        <ol>
+            <li>Initial assessment to determine your level</li>
+            <li>Personalized learning plan creation</li>
+            <li>Interactive lessons with immediate feedback</li>
+            <li>Regular progress evaluations</li>
+            <li>Cultural immersion activities</li>
+        </ol>
+    </section>
+
+
+<hr class="section-divider">
+
+
+<section id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-info">
+            <p>Ready to start your language journey? Get in touch!</p>
+            
+            <h3>Contact Information:</h3>
+            <p>📞 <strong>Phone:</strong> +91 96555 94873</p>
+            <p>📧 <strong>Email:</strong> jsathya817@gmail.com</p>
+            <p>🌐 <strong>Website:</strong> akshayahinditution.in</p>
+            <p>📍 <strong>Address:</strong> No.40 Sivaraj Nagar, Potti Naidu St, Vandavasi</p>
+
+            <div class="social-media">
+                <h3>Follow Us:</h3>
+                <a href="#">Facebook: @LanguageSchool</a>
+                <a href="#">Instagram: @LearnWithUs</a>
+                <a href="#">YouTube: Language Mastery</a>
+            </div>
+           
+           <a href="#" class="cta-button">Book a Free Trial Class Today!</a>
+              
+        </div>
+    </section>
+
+
+    <!-- Other sections... -->
+    
+    <footer class="footer">
+        <p>&copy; 2023 Hindi Gyan Tuition Center. All rights reserved.</p>
+        <p>Follow us on social media</p>
+    </footer>
+
+
+
+    <script>
+        // Show enrollment form when button is clicked
+        document.getElementById('enrollBtn').addEventListener('click', function() {
+            document.getElementById('enrollmentForm').style.display = 'block';
+            window.scrollTo({
+                top: document.getElementById('enrollmentForm').offsetTop - 20,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Form submission handler
+        document.getElementById('studentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            // Here you would typically send this data to your server
+            // For demonstration, we'll simulate sending to email
+            
+            // In a real implementation, you would use:
+            // fetch('your-server-endpoint', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(data)
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log('Success:', data);
+            //     document.getElementById('studentForm').style.display = 'none';
+            //     document.getElementById('successMessage').style.display = 'block';
+            // })
+            // .catch((error) => {
+            //     console.error('Error:', error);
+            // });
+            
+            // For demo purposes, we'll just show the success message
+            console.log('Form data to be sent:', data);
+            document.getElementById('studentForm').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Scroll to show the success message
+            window.scrollTo({
+                top: document.getElementById('enrollmentForm').offsetTop - 20,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
