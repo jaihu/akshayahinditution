@@ -145,6 +145,50 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
+<!-- Admin Section -->
+<section id="admin-section" class="ticket-section" style="display: none;">
+    <h2>Admin Dashboard</h2>
+    
+    <div class="mb-4">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Ticket Statistics</h5>
+                        <div id="stats-container" class="d-flex justify-content-between flex-wrap">
+                            <!-- Stats will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Quick Actions</h5>
+                        <button id="export-btn" class="btn btn-outline-primary mb-2 w-100">Export All Tickets</button>
+                        <button id="clear-btn" class="btn btn-outline-danger mb-2 w-100">Clear All Tickets</button>
+                        <input type="file" id="import-file" class="d-none" accept=".json">
+                        <button id="import-btn" class="btn btn-outline-success w-100">Import Tickets</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">All Tickets</h5>
+            <div class="mb-3">
+                <input type="text" id="admin-search" class="form-control" placeholder="Search tickets...">
+            </div>
+            <div id="admin-tickets-container">
+                <!-- Tickets will be loaded here -->
+            </div>
+        </div>
+    </div>
+</section>
+    
 </body>
 </html>
+
 
