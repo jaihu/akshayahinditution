@@ -167,66 +167,122 @@
     
     <!-- Enrollment Form -->
     <div class="enrollment-form" id="enrollmentForm">
-        <h2>Student Enrollment Form</h2>
-        <form id="studentForm">
-            <div class="form-group">
-                <label for="studentName">Student Full Name*</label>
-                <input type="text" id="studentName" name="studentName" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="parentName">Parent/Guardian Name*</label>
-                <input type="text" id="parentName" name="parentName" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="age">Student Age*</label>
-                <input type="number" id="age" name="age" min="5" max="25" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="grade">Current Grade/Class</label>
-                <input type="text" id="grade" name="grade">
-            </div>
-            
-            <div class="form-group">
-                <label for="email">Email Address*</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="phone">Phone Number*</label>
-                <input type="tel" id="phone" name="phone" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="address">Full Address</label>
-                <textarea id="address" name="address" rows="3"></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label for="course">Select Course*</label>
-                <select id="course" name="course" required>
-                    <option value="">-- Select a Course --</option>
-                    <option value="Basic Hindi">Basic Hindi</option>
-                    <option value="CBSE Curriculum">CBSE Curriculum</option>
-                    <option value="ICSE Curriculum">ICSE Curriculum</option>
-                    <option value="Advanced Hindi">Advanced Hindi</option>
-                    <option value="Competitive Exam Prep">Competitive Exam Preparation</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="experience">Previous Hindi Learning Experience</label>
-                <textarea id="experience" name="experience" rows="3" placeholder="Briefly describe any previous Hindi learning experience"></textarea>
-            </div>
-            
-            <button type="submit" class="form-submit">Submit Enrollment</button>
-        </form>
-        <div class="success-message" id="successMessage">
-            Thank you for your enrollment! We will contact you shortly.
+    <h2>Student Enrollment Form</h2>
+
+    <form id="studentForm" action="https://formspree.io/f/xyzpbzzp" method="POST">
+
+        <div class="form-group">
+            <label for="studentName">Student Full Name*</label>
+            <input type="text" id="studentName" name="studentName" required>
         </div>
+
+        <div class="form-group">
+            <label for="parentName">Parent/Guardian Name*</label>
+            <input type="text" id="parentName" name="parentName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="age">Student Age*</label>
+            <input type="number" id="age" name="age" min="5" max="25" required>
+        </div>
+
+        <div class="form-group">
+            <label for="grade">Current Grade/Class</label>
+            <input type="text" id="grade" name="grade">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address*</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number*</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Full Address</label>
+            <textarea id="address" name="address" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="course">Select Course*</label>
+            <select id="course" name="course" required>
+                <option value="">-- Select a Course --</option>
+                <option value="Basic Hindi">Basic Hindi</option>
+                <option value="CBSE Curriculum">CBSE Curriculum</option>
+                <option value="ICSE Curriculum">ICSE Curriculum</option>
+                <option value="Advanced Hindi">Advanced Hindi</option>
+                <option value="Competitive Exam Prep">Competitive Exam Preparation</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="experience">Previous Hindi Learning Experience</label>
+            <textarea id="experience" name="experience" rows="3" placeholder="Briefly describe any previous Hindi learning experience"></textarea>
+        </div>
+
+        <!-- Required hidden message field for Formspree -->
+        <input type="hidden" name="message" value="New enrollment received via website form.">
+
+        <button type="submit" class="form-submit">Submit Enrollment</button>
+    </form>
+
+    <div class="success-message" id="successMessage">
+        Thank you for your enrollment! We will contact you shortly.
     </div>
+</div>
+
+<script>
+document.getElementById('studentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const submitBtn = this.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+
+    const formData = new FormData(this);
+    formData.append('_subject', 'New Enrollment - ' + formData.get('studentName'));
+    formData.append('_replyto', formData.get('email'));
+    formData.append('_format', 'plain');
+    formData.append('_language', 'en');
+
+    fetch('https://formspree.io/f/xyzpbzzp', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => {
+        console.log('HTTP Status:', response.status);
+        if (!response.ok) throw new Error('HTTP error');
+        return response.json();
+    })
+    .then(data => {
+        console.log('Formspree Response:', data);
+        if (data.ok || data.success) {
+            document.getElementById('studentForm').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            window.scrollTo({
+                top: document.getElementById('successMessage').offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Form submission failed. Please contact us directly at +91 96555 94873');
+    })
+    .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+    });
+});
+</script>
     
     <!-- Rest of your website content -->
     <section class="section" id="courses">
@@ -310,59 +366,7 @@
 
 
 
-    <script>
-        // Show enrollment form when button is clicked
-        document.getElementById('enrollBtn').addEventListener('click', function() {
-            document.getElementById('enrollmentForm').style.display = 'block';
-            window.scrollTo({
-                top: document.getElementById('enrollmentForm').offsetTop - 20,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Form submission handler
-        document.getElementById('studentForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Collect form data
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
-            
-            // Here you would typically send this data to your server
-            // For demonstration, we'll simulate sending to email
-            
-            // In a real implementation, you would use:
-            // fetch('your-server-endpoint', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(data)
-            // })
-            // .then(response => response.json())
-            // .then(data => {
-            //     console.log('Success:', data);
-            //     document.getElementById('studentForm').style.display = 'none';
-            //     document.getElementById('successMessage').style.display = 'block';
-            // })
-            // .catch((error) => {
-            //     console.error('Error:', error);
-            // });
-            
-            // For demo purposes, we'll just show the success message
-            console.log('Form data to be sent:', data);
-            document.getElementById('studentForm').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
-            
-            // Scroll to show the success message
-            window.scrollTo({
-                top: document.getElementById('enrollmentForm').offsetTop - 20,
-                behavior: 'smooth'
-            });
-        });
-    </script>
+    
 </body>
 </html>
+
