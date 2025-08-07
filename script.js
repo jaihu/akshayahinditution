@@ -53,6 +53,209 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Add to your existing DOMContentLoaded event listener
+
+// Add Admin tab to your navigation (add this with your other tabs)
+const adminTab = document.createElement('a');
+adminTab.className = 'nav-link';
+adminTab.href = '#';
+adminTab.id = 'admin-tab';
+adminTab.textContent = 'Admin';
+document.querySelector('.nav').appendChild(adminTab);
+
+// Add click handler for admin tab
+adminTab.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('.nav-link').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    document.querySelectorAll('.ticket-section').forEach(s => s.style.display = 'none');
+    document.getElementById('admin-section').style.display = 'block';
+    loadAdminDashboard();
+});
+
+// Admin Dashboard Functions
+function loadAdminDashboard() {
+    const tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+    renderStats(tickets);
+    renderAllTickets(tickets);
+    setupAdminSearch();
+    setupAdminActions();
+}
+
+function renderStats(tickets) {
+    const statsContainer = document.getElementById('stats-container');
+    
+    const statusCounts = tickets.reduce((acc, ticket) => {
+        acc[ticket.status] = (acc[ticket.status] || 0) + 1;
+        return acc;
+    }, {});
+    
+    statsContainer.innerHTML = `
+        <div class="stat-card">
+            <h3>${tickets.length}</h3>
+            <p>Total Tickets</p>
+        </div>
+        <div class="stat-card">
+            <h3>${statusCounts['open'] || 0}</h3>
+            <p>Open</p>
+        </div>
+        <div class="stat-card">
+            <h3>${statusCounts['pending'] || 0}</h3>
+            <p>Pending</p>
+        </div>
+        <div class="stat-card">
+            <h3>${statusCounts['resolved'] || 0}</h3>
+            <p>Resolved</p>
+        </div>
+    `;
+}
+
+function renderAllTickets(tickets) {
+    const container = document.getElementById('admin-tickets-container');
+    container.innerHTML = '';
+    
+    if (tickets.length === 0) {
+        container.innerHTML = '<div class="alert alert-info">No tickets found</div>';
+        return;
+    }
+    
+    tickets.forEach(ticket => {
+        const ticketEl = document.createElement('div');
+        ticketEl.className = 'card mb-2 admin-ticket';
+        ticketEl.dataset.id = ticket.id;
+        ticketEl.innerHTML = `
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h5 class="card-title">${ticket.subject}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">ID: ${ticket.id}</h6>
+                        <p class="card-text mb-1">${ticket.description.substring(0, 100)}${ticket.description.length > 100 ? '...' : ''}</p>
+                        <small class="text-muted">Submitted by ${ticket.name} (${ticket.email}) on ${new Date(ticket.createdAt).toLocaleString()}</small>
+                    </div>
+                    <div>
+                        <span class="badge ${getStatusClass(ticket.status)} me-2">${ticket.status}</span>
+                        <span class="badge bg-secondary">${ticket.priority}</span>
+                    </div>
+                </div>
+                <div class="ticket-actions mt-3">
+                    <select class="form-select form-select-sm d-inline-block w-auto me-2 status-select">
+                        <option value="open" ${ticket.status === 'open' ? 'selected' : ''}>Open</option>
+                        <option value="pending" ${ticket.status === 'pending' ? 'selected' : ''}>Pending</option>
+                        <option value="resolved" ${ticket.status === 'resolved' ? 'selected' : ''}>Resolved</option>
+                        <option value="closed" ${ticket.status === 'closed' ? 'selected' : ''}>Closed</option>
+                    </select>
+                    <button class="btn btn-sm btn-outline-danger delete-ticket">Delete</button>
+                </div>
+            </div>
+        `;
+        container.appendChild(ticketEl);
+    });
+}
+
+function setupAdminSearch() {
+    const searchInput = document.getElementById('admin-search');
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+        
+        if (!searchTerm) {
+            renderAllTickets(tickets);
+            return;
+        }
+        
+        const filteredTickets = tickets.filter(ticket => 
+            ticket.subject.toLowerCase().includes(searchTerm) ||
+            ticket.description.toLowerCase().includes(searchTerm) ||
+            ticket.id.toLowerCase().includes(searchTerm) ||
+            ticket.name.toLowerCase().includes(searchTerm) ||
+            ticket.email.toLowerCase().includes(searchTerm)
+        );
+        
+        renderAllTickets(filteredTickets);
+    });
+}
+
+function setupAdminActions() {
+    // Status change handler
+    document.getElementById('admin-tickets-container').addEventListener('change', function(e) {
+        if (e.target.classList.contains('status-select')) {
+            const ticketId = e.target.closest('.admin-ticket').dataset.id;
+            const newStatus = e.target.value;
+            
+            let tickets = JSON.parse(localStorage.getItem('tickets'));
+            const ticketIndex = tickets.findIndex(t => t.id === ticketId);
+            
+            if (ticketIndex !== -1) {
+                tickets[ticketIndex].status = newStatus;
+                tickets[ticketIndex].updatedAt = new Date().toISOString();
+                localStorage.setItem('tickets', JSON.stringify(tickets));
+                loadAdminDashboard();
+            }
+        }
+    });
+    
+    // Delete ticket handler
+    document.getElementById('admin-tickets-container').addEventListener('click', function(e) {
+        if (e.target.classList.contains('delete-ticket')) {
+            if (confirm('Are you sure you want to delete this ticket?')) {
+                const ticketId = e.target.closest('.admin-ticket').dataset.id;
+                
+                let tickets = JSON.parse(localStorage.getItem('tickets'));
+                tickets = tickets.filter(t => t.id !== ticketId);
+                localStorage.setItem('tickets', JSON.stringify(tickets));
+                loadAdminDashboard();
+            }
+        }
+    });
+    
+    // Export tickets
+    document.getElementById('export-btn').addEventListener('click', function() {
+        const tickets = JSON.parse(localStorage.getItem('tickets'));
+        const dataStr = JSON.stringify(tickets, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        
+        const exportFileDefaultName = 'tickets-export.json';
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+    });
+    
+    // Import tickets
+    document.getElementById('import-btn').addEventListener('click', function() {
+        document.getElementById('import-file').click();
+    });
+    
+    document.getElementById('import-file').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const importedTickets = JSON.parse(e.target.result);
+                if (Array.isArray(importedTickets)) {
+                    localStorage.setItem('tickets', JSON.stringify(importedTickets));
+                    alert(`Successfully imported ${importedTickets.length} tickets`);
+                    loadAdminDashboard();
+                } else {
+                    alert('Invalid file format. Expected an array of tickets.');
+                }
+            } catch (error) {
+                alert('Error parsing JSON file: ' + error.message);
+            }
+        };
+        reader.readAsText(file);
+    });
+    
+    // Clear all tickets
+    document.getElementById('clear-btn').addEventListener('click', function() {
+        if (confirm('Are you sure you want to delete ALL tickets? This cannot be undone.')) {
+            localStorage.setItem('tickets', JSON.stringify([]));
+            loadAdminDashboard();
+        }
+    });
+}
     // Track tickets functionality
     const trackForm = document.getElementById('track-form');
     if (trackForm) {
