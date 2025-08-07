@@ -1,58 +1,101 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize ticket data if not exists
-    if (!localStorage.getItem('tickets')) {
-        localStorage.setItem('tickets', JSON.stringify([]));
-    }
-
-    // Generate a unique ticket ID
-    function generateTicketId() {
-        const timestamp = Date.now().toString().slice(-6);
-        const randomNum = Math.floor(1000 + Math.random() * 9000);
-        return `TKT-${timestamp}-${randomNum}`;
-    }
-
-    // Ticket submission
-    const ticketForm = document.getElementById('ticket-form');
-    if (ticketForm) {
-        ticketForm.addEventListener('submit', function(e) {
+// Add this to your existing script.js file
+function setupTicketTracking() {
+    const trackForm = document.getElementById('track-form');
+    const ticketResults = document.getElementById('ticket-results');
+    
+    if (trackForm) {
+        trackForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Generate ticket ID
-            const ticketId = generateTicketId();
-            console.log("Generated Ticket ID:", ticketId); // Debug log
+            const email = document.getElementById('track-email').value.trim();
+            const ticketId = document.getElementById('track-ticket-id').value.trim();
             
-            // Create ticket object
-            const ticketData = {
-                id: ticketId,
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                subject: document.getElementById('subject').value,
-                department: document.getElementById('department').value,
-                priority: document.getElementById('priority').value,
-                description: document.getElementById('description').value,
-                status: 'open',
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString()
-            };
+            if (!email) {
+                showError("Please enter your email address");
+                return;
+            }
             
-            // Save ticket
-            let tickets = JSON.parse(localStorage.getItem('tickets'));
-            tickets.push(ticketData);
-            localStorage.setItem('tickets', JSON.stringify(tickets));
+            const tickets = JSON.parse(localStorage.getItem('tickets') || [];
+            let filteredTickets = tickets.filter(ticket => 
+                ticket.email.toLowerCase() === email.toLowerCase()
+            );
             
-            // Show confirmation with ticket ID
-            document.getElementById('ticket-id').textContent = ticketId;
-            document.getElementById('ticket-confirmation').style.display = 'block';
+            if (ticketId) {
+                filteredTickets = filteredTickets.filter(ticket => 
+                    ticket.id.toLowerCase() === ticketId.toLowerCase()
+                );
+            }
             
-            // Reset form
-            ticketForm.reset();
-            
-            // Scroll to confirmation
-            document.getElementById('ticket-confirmation').scrollIntoView({
-                behavior: 'smooth'
-            });
+            displayTicketResults(filteredTickets);
         });
     }
+}
 
-    // Rest of your existing code for tracking tickets...
+function displayTicketResults(tickets) {
+    const resultsContainer = document.getElementById('ticket-results');
+    resultsContainer.innerHTML = '';
+    
+    if (!tickets || tickets.length === 0) {
+        resultsContainer.innerHTML = `
+            <div class="alert alert-info">
+                No tickets found matching your criteria.
+            </div>
+        `;
+        return;
+    }
+    
+    const html = tickets.map(ticket => `
+        <div class="card ticket-card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">${ticket.subject}</h5>
+                    <span class="badge ${getStatusBadgeClass(ticket.status)}">
+                        ${ticket.status}
+                    </span>
+                </div>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    Ticket ID: ${ticket.id}
+                </h6>
+                <p class="card-text">${ticket.description}</p>
+                <div class="ticket-meta">
+                    <small class="text-muted">
+                        <strong>Submitted:</strong> ${new Date(ticket.createdAt).toLocaleString()}
+                    </small>
+                    <small class="text-muted">
+                        <strong>Priority:</strong> ${ticket.priority}
+                    </small>
+                    <small class="text-muted">
+                        <strong>Department:</strong> ${ticket.department}
+                    </small>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    resultsContainer.innerHTML = html;
+}
+
+function getStatusBadgeClass(status) {
+    const statusClasses = {
+        'open': 'bg-primary',
+        'pending': 'bg-warning text-dark',
+        'resolved': 'bg-success',
+        'closed': 'bg-secondary'
+    };
+    return statusClasses[status.toLowerCase()] || 'bg-info';
+}
+
+function showError(message) {
+    const resultsContainer = document.getElementById('ticket-results');
+    resultsContainer.innerHTML = `
+        <div class="alert alert-danger">
+            ${message}
+        </div>
+    `;
+}
+
+// Call this function when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    setupTicketTracking();
+    // Your other initialization code...
 });
