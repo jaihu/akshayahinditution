@@ -4,55 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('tickets', JSON.stringify([]));
     }
 
-    // Tab switching functionality
-    const tabs = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('.ticket-section');
-    
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function(e) {
-            e.preventDefault();
-            tabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            
-            const targetId = this.id.replace('-tab', '-section');
-            sections.forEach(section => {
-                section.style.display = 'none';
-            });
-            document.getElementById(targetId).style.display = 'block';
-        });
-    });
-
-    // Ticket submission
-    const ticketForm = document.getElementById('ticket-form');
-    if (ticketForm) {
-        ticketForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const ticketId = 'TKT-' + Date.now().toString(36) + Math.random().toString(36).substr(2, 5).toUpperCase();
-            
-            const ticketData = {
-                id: ticketId,
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                subject: document.getElementById('subject').value,
-                department: document.getElementById('department').value,
-                priority: document.getElementById('priority').value,
-                description: document.getElementById('description').value,
-                status: 'open',
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString()
-            };
-            
-            let tickets = JSON.parse(localStorage.getItem('tickets'));
-            tickets.push(ticketData);
-            localStorage.setItem('tickets', JSON.stringify(tickets));
-            
-            document.getElementById('ticket-id').textContent = ticketId;
-            document.getElementById('ticket-confirmation').style.display = 'block';
-            ticketForm.reset();
-        });
-    }
-
     // Add to your existing DOMContentLoaded event listener
 
 // Add Admin tab to your navigation (add this with your other tabs)
@@ -256,6 +207,56 @@ function setupAdminActions() {
         }
     });
 }
+    // Tab switching functionality
+    const tabs = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('.ticket-section');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            tabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            const targetId = this.id.replace('-tab', '-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(targetId).style.display = 'block';
+        });
+    });
+
+    // Ticket submission
+    const ticketForm = document.getElementById('ticket-form');
+    if (ticketForm) {
+        ticketForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const ticketId = 'TKT-' + Date.now().toString(36) + Math.random().toString(36).substr(2, 5).toUpperCase();
+            
+            const ticketData = {
+                id: ticketId,
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                department: document.getElementById('department').value,
+                priority: document.getElementById('priority').value,
+                description: document.getElementById('description').value,
+                status: 'open',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            
+            let tickets = JSON.parse(localStorage.getItem('tickets'));
+            tickets.push(ticketData);
+            localStorage.setItem('tickets', JSON.stringify(tickets));
+            
+            document.getElementById('ticket-id').textContent = ticketId;
+            document.getElementById('ticket-confirmation').style.display = 'block';
+            ticketForm.reset();
+        });
+    }
+
+    
     // Track tickets functionality
     const trackForm = document.getElementById('track-form');
     if (trackForm) {
