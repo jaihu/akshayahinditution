@@ -145,7 +145,23 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
-<!-- Admin Section -->
+<!-- Admin Section --><div class="col-md-6 mb-3">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Quick Actions</h5>
+            <!-- Add this button with the others -->
+            <button id="sync-btn" class="btn btn-outline-info mb-2 w-100">
+                <i class="bi bi-arrow-repeat"></i> Sync Tickets
+            </button>
+            <button id="export-btn" class="btn btn-outline-primary mb-2 w-100">Export All Tickets</button>
+            <button id="clear-btn" class="btn btn-outline-danger mb-2 w-100">Clear All Tickets</button>
+            <input type="file" id="import-file" class="d-none" accept=".json">
+            <button id="import-btn" class="btn btn-outline-success w-100">Import Tickets</button>
+        </div>
+    </div>
+</div>
+
+    
 <section id="admin-section" class="ticket-section" style="display: none;">
     <h2>Admin Dashboard</h2>
     
@@ -190,5 +206,6 @@
     
 </body>
 </html>
+
 
 
