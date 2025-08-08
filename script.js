@@ -4,6 +4,41 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('tickets', JSON.stringify([]));
     }
 
+
+function setupSyncFunctionality() {
+    document.getElementById('sync-btn').addEventListener('click', async function() {
+        try {
+            // For demo purposes - in real app you would call your backend API
+            const response = await mockSyncWithServer();
+            if (response.success) {
+                alert('Tickets synchronized successfully!');
+                loadAdminDashboard();
+            } else {
+                alert('Sync failed: ' + response.message);
+            }
+        } catch (error) {
+            console.error('Sync error:', error);
+            alert('Error during synchronization');
+        }
+    });
+}
+
+// Mock sync function - replace with real API calls
+async function mockSyncWithServer() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            // In a real app, this would sync with your backend
+            resolve({ success: true, message: 'Synced local changes' });
+        }, 1000);
+    });
+}
+
+// Call this in your DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    setupSyncFunctionality();
+    // ... your other initialization code
+});
+    
     // Add to your existing DOMContentLoaded event listener
 
 // Add Admin tab to your navigation (add this with your other tabs)
