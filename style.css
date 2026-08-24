@@ -1,116 +1,441 @@
-#stats-container {
-    gap: 10px;
-}
+/* =========================================
+   AKSHAYA HINDI TUITION
+   Main Stylesheet
+   ========================================= */
 
-.stat-card {
-    flex: 1;
-    min-width: 120px;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    background-color: #f8f9fa;
-}
-
-.stat-card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 5px;
-}
-
-.stat-card p {
+* {
     margin: 0;
-    color: #6c757d;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-.admin-ticket {
-    cursor: pointer;
-    transition: all 0.2s;
+html {
+    scroll-behavior: smooth;
 }
 
-.admin-ticket:hover {
-    background-color: #f8f9fa;
-}
-
-.ticket-actions {
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-
-.admin-ticket:hover .ticket-actions {
-    opacity: 1;
-}
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f8f9fa;
+    background: #fffaf4;
     color: #333;
+    line-height: 1.6;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
+
+/* =========================================
+   HEADER
+   ========================================= */
 
 header {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: linear-gradient(135deg, #8e2de2, #4a00e0);
+    color: white;
+    padding: 18px 8%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.nav-pills .nav-link.active {
-    background-color: #0d6efd;
-}
-
-.ticket-section {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-}
-
-.ticket-card {
-    border-left: 4px solid #0d6efd;
-    margin-bottom: 15px;
-}
-
-.ticket-card.high-priority {
-    border-left-color: #dc3545;
-}
-
-.ticket-card.critical-priority {
-    border-left-color: #ffc107;
-    background-color: #fff8e1;
-}
-
-.status-badge {
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 0.8rem;
+.logo {
+    font-size: 24px;
     font-weight: bold;
 }
 
-.status-open {
-    background-color: #d4edda;
-    color: #155724;
+.logo span {
+    color: #ffd166;
 }
 
-.status-pending {
-    background-color: #fff3cd;
-    color: #856404;
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
-.status-resolved {
-    background-color: #d1ecf1;
-    color: #0c5460;
+nav a:hover {
+    color: #ffd166;
 }
 
-.status-closed {
-    background-color: #f8d7da;
-    color: #721c24;
+
+/* =========================================
+   HERO SECTION
+   ========================================= */
+
+.hero {
+    min-height: 600px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 50px 20px;
+
+    background:
+        linear-gradient(
+            rgba(74, 0, 224, 0.75),
+            rgba(142, 45, 226, 0.75)
+        ),
+        url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80");
+
+    background-size: cover;
+    background-position: center;
+
+    color: white;
 }
+
+.hero-content {
+    max-width: 850px;
+}
+
+.hero h1 {
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+.hero h2 {
+    font-size: 30px;
+    color: #ffd166;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+.btn {
+    display: inline-block;
+
+    padding: 14px 28px;
+    margin: 8px;
+
+    border-radius: 30px;
+
+    text-decoration: none;
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background: #ffd166;
+    color: #4a00e0;
+}
+
+.btn-whatsapp {
+    background: #25D366;
+    color: white;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+
+/* =========================================
+   GENERAL SECTIONS
+   ========================================= */
+
+section {
+    padding: 70px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.section-title h2 {
+    font-size: 36px;
+    color: #4a00e0;
+}
+
+.section-title p {
+    color: #666;
+}
+
+
+/* =========================================
+   CLASS CARDS
+   ========================================= */
+
+.cards {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 30px;
+
+    max-width: 1000px;
+
+    margin: auto;
+}
+
+.card {
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+}
+
+.card .icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    color: #4a00e0;
+
+    font-size: 25px;
+
+    margin-bottom: 12px;
+}
+
+.card ul {
+    list-style: none;
+    margin-top: 15px;
+}
+
+.card li {
+    padding: 6px;
+}
+
+
+/* =========================================
+   ABOUT SECTION
+   ========================================= */
+
+.about {
+    background: #f1e9ff;
+}
+
+.about-content {
+    max-width: 900px;
+
+    margin: auto;
+
+    text-align: center;
+}
+
+.about-content h3 {
+    font-size: 30px;
+
+    color: #8e2de2;
+
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    font-size: 18px;
+}
+
+
+/* =========================================
+   BENEFITS
+   ========================================= */
+
+.benefits {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+
+    max-width: 1100px;
+
+    margin: auto;
+}
+
+.benefit {
+    background: white;
+
+    padding: 30px;
+
+    text-align: center;
+
+    border-radius: 15px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
+    transition: 0.3s;
+}
+
+.benefit:hover {
+    transform: translateY(-6px);
+}
+
+.benefit h3 {
+    color: #4a00e0;
+    margin: 10px 0;
+}
+
+.benefit-icon {
+    font-size: 40px;
+}
+
+
+/* =========================================
+   CONTACT SECTION
+   ========================================= */
+
+.contact {
+    background: linear-gradient(
+        135deg,
+        #4a00e0,
+        #8e2de2
+    );
+
+    color: white;
+
+    text-align: center;
+}
+
+.contact h2 {
+    font-size: 38px;
+    margin-bottom: 25px;
+}
+
+.contact-info {
+    font-size: 19px;
+
+    line-height: 2;
+
+    margin-bottom: 25px;
+}
+
+.contact-info a {
+    color: #ffd166;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+footer {
+    background: #25005c;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 20px;
+}
+
+footer span {
+    color: #ffd166;
+}
+
+
+/* =========================================
+   MOBILE RESPONSIVE
+   ========================================= */
 
 @media (max-width: 768px) {
-    .ticket-section {
-        padding: 20px;
+
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav a {
+        margin: 0 7px;
+        font-size: 14px;
+    }
+
+    .hero {
+        min-height: 500px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero h2 {
+        font-size: 23px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .benefits {
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        padding: 50px 5%;
+    }
+
+    .section-title h2 {
+        font-size: 30px;
+    }
+}
+
+
+/* =========================================
+   SMALL MOBILE DEVICES
+   ========================================= */
+
+@media (max-width: 480px) {
+
+    .logo {
+        font-size: 20px;
+    }
+
+    nav a {
+        font-size: 13px;
+        margin: 0 4px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .hero h2 {
+        font-size: 20px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 25px 20px;
     }
 }
