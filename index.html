@@ -3,209 +3,541 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Support Portal</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Akshaya Hindi Tuition | Online & Offline Hindi Classes</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #fffaf4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
+            color: white;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #ffd166;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ffd166;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 20px;
+            background:
+                linear-gradient(rgba(74,0,224,0.75), rgba(142,45,226,0.75)),
+                url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80");
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+
+        .hero h2 {
+            font-size: 30px;
+            color: #ffd166;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            margin: 8px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: #ffd166;
+            color: #4a00e0;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Sections */
+        section {
+            padding: 70px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: #4a00e0;
+        }
+
+        .section-title p {
+            color: #666;
+        }
+
+        /* Courses */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        .card .icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: #4a00e0;
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .card ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .card li {
+            padding: 6px;
+        }
+
+        /* About */
+        .about {
+            background: #f1e9ff;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .about-content h3 {
+            font-size: 30px;
+            color: #8e2de2;
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            font-size: 18px;
+        }
+
+        /* Benefits */
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .benefit {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .benefit h3 {
+            color: #4a00e0;
+            margin: 10px 0;
+        }
+
+        .benefit-icon {
+            font-size: 40px;
+        }
+
+        /* Contact */
+        .contact {
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 38px;
+            margin-bottom: 25px;
+        }
+
+        .contact-info {
+            font-size: 19px;
+            line-height: 2;
+            margin-bottom: 25px;
+        }
+
+        .contact-info a {
+            color: #ffd166;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: #25005c;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer span {
+            color: #ffd166;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+
+            header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav a {
+                margin: 0 7px;
+                font-size: 14px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero h2 {
+                font-size: 23px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 50px 5%;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <div class="container">
-        <header class="my-4">
-            <h1 class="text-center">Customer Support Portal</h1>
-            <nav class="nav nav-pills justify-content-center">
-                <a class="nav-link active" href="#" id="create-tab">Create Ticket</a>
-                <a class="nav-link" href="#" id="track-tab">Track Tickets</a>
-                <a class="nav-link" href="#" id="faq-tab">FAQ</a>
-            </nav>
-        </header>
 
-        <main>
-            <!-- Create Ticket Section -->
-            <section id="create-section" class="ticket-section">
-                <h2>Create New Support Ticket</h2>
-                <form id="ticket-form">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Your Name</label>
-                        <input type="text" class="form-control" id="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="subject" class="form-label">Subject</label>
-                        <input type="text" class="form-control" id="subject" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="department" class="form-label">Department</label>
-                        <select class="form-select" id="department" required>
-                            <option value="">Select Department</option>
-                            <option value="technical">Technical Support</option>
-                            <option value="billing">Billing</option>
-                            <option value="sales">Sales</option>
-                            <option value="general">General Inquiry</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="priority" class="form-label">Priority</label>
-                        <select class="form-select" id="priority" required>
-                            <option value="low">Low</option>
-                            <option value="medium" selected>Medium</option>
-                            <option value="high">High</option>
-                            <option value="critical">Critical</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" rows="5" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="attachment" class="form-label">Attach File (Optional)</label>
-                        <input class="form-control" type="file" id="attachment">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit Ticket</button>
-                </form>
-                <div id="ticket-confirmation" class="mt-4 alert alert-success" style="display: none;">
-                    <h3>Ticket Submitted Successfully!</h3>
-                    <p>Your ticket ID is: <strong id="ticket-id"></strong></p>
-                    <p>We'll contact you shortly. You can track your ticket status using the Track Tickets tab.</p>
-                </div>
-            </section>
-
-            <!-- Track Tickets Section -->
-            <section id="track-section" class="ticket-section" style="display: none;">
-    <h2>Track Your Tickets</h2>
-    <form id="track-form" class="mb-4">
-        <div class="row g-3">
-            <div class="col-md-6">
-                <label for="track-email" class="form-label">Email Address</label>
-                <input type="email" class="form-control" id="track-email" required>
-            </div>
-            <div class="col-md-6">
-                <label for="track-ticket-id" class="form-label">Ticket ID (Optional)</label>
-                <input type="text" class="form-control" id="track-ticket-id">
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary mt-3">Search Tickets</button>
-    </form>
-
-    <div id="ticket-results">
-        <!-- Results will appear here -->
+<!-- HEADER -->
+<header>
+    <div class="logo">
+        <span>अ</span> Akshaya Hindi Tuition
     </div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#classes">Classes</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>अक्षया हिंदी ट्यूशन</h1>
+
+        <h2>Akshaya Hindi Tuition</h2>
+
+        <p>
+            Learn Hindi Easily & Confidently
+            <br>
+            <strong>Online & Offline Hindi Classes</strong>
+        </p>
+
+        <a href="#classes" class="btn btn-primary">
+            📚 View Classes
+        </a>
+
+        <a href="https://wa.me/919655594873"
+           class="btn btn-whatsapp"
+           target="_blank">
+            💬 WhatsApp Us
+        </a>
+
+    </div>
+
 </section>
-            <!-- FAQ Section -->
-            <section id="faq-section" class="ticket-section" style="display: none;">
-                <h2>Frequently Asked Questions</h2>
-                <div class="accordion" id="faqAccordion">
-                    <div class="accordion-item">
-                        <h3 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                                How long does it take to get a response?
-                            </button>
-                        </h3>
-                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                Response times vary by priority. Critical issues are typically addressed within 1 hour, 
-                                High priority within 4 hours, Medium within 24 hours, and Low within 48 hours.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h3 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                                Can I update my ticket after submission?
-                            </button>
-                        </h3>
-                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                Yes, you can reply to the email notifications you receive to add more information to your ticket.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h3 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                                What information should I include in my ticket?
-                            </button>
-                        </h3>
-                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                Please include as much detail as possible: error messages, steps to reproduce the issue, 
-                                screenshots if applicable, and any troubleshooting steps you've already tried.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
 
-        <footer class="mt-5 py-3 text-center text-muted">
-            <p>Customer Support Portal &copy; 2023 | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-        </footer>
+
+<!-- CLASSES -->
+<section id="classes">
+
+    <div class="section-title">
+        <h2>Our Hindi Classes</h2>
+        <p>Choose the learning method that suits you</p>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
-<!-- Admin Section --><div class="col-md-6 mb-3">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Quick Actions</h5>
-            <!-- Add this button with the others -->
-            <button id="sync-btn" class="btn btn-outline-info mb-2 w-100">
-                <i class="bi bi-arrow-repeat"></i> Sync Tickets
-            </button>
-            <button id="export-btn" class="btn btn-outline-primary mb-2 w-100">Export All Tickets</button>
-            <button id="clear-btn" class="btn btn-outline-danger mb-2 w-100">Clear All Tickets</button>
-            <input type="file" id="import-file" class="d-none" accept=".json">
-            <button id="import-btn" class="btn btn-outline-success w-100">Import Tickets</button>
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="icon">💻</div>
+
+            <h3>Online Hindi Tuition</h3>
+
+            <p>
+                Learn Hindi from the comfort of your home.
+            </p>
+
+            <ul>
+                <li>✅ Live Online Classes</li>
+                <li>✅ Individual Attention</li>
+                <li>✅ Interactive Learning</li>
+                <li>✅ Flexible Timing</li>
+                <li>✅ Regular Practice</li>
+            </ul>
+
         </div>
-    </div>
-</div>
 
-    
-<section id="admin-section" class="ticket-section" style="display: none;">
-    <h2>Admin Dashboard</h2>
-    
-    <div class="mb-4">
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Ticket Statistics</h5>
-                        <div id="stats-container" class="d-flex justify-content-between flex-wrap">
-                            <!-- Stats will be loaded here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Quick Actions</h5>
-                        <button id="export-btn" class="btn btn-outline-primary mb-2 w-100">Export All Tickets</button>
-                        <button id="clear-btn" class="btn btn-outline-danger mb-2 w-100">Clear All Tickets</button>
-                        <input type="file" id="import-file" class="d-none" accept=".json">
-                        <button id="import-btn" class="btn btn-outline-success w-100">Import Tickets</button>
-                    </div>
-                </div>
-            </div>
+
+        <div class="card">
+
+            <div class="icon">🏫</div>
+
+            <h3>Offline Hindi Tuition</h3>
+
+            <p>
+                Personal classroom learning with proper guidance.
+            </p>
+
+            <ul>
+                <li>✅ Face-to-Face Classes</li>
+                <li>✅ Individual Attention</li>
+                <li>✅ Reading & Writing Practice</li>
+                <li>✅ Grammar Training</li>
+                <li>✅ Regular Tests</li>
+            </ul>
+
         </div>
+
     </div>
 
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">All Tickets</h5>
-            <div class="mb-3">
-                <input type="text" id="admin-search" class="form-control" placeholder="Search tickets...">
-            </div>
-            <div id="admin-tickets-container">
-                <!-- Tickets will be loaded here -->
-            </div>
-        </div>
-    </div>
 </section>
-    
+
+
+<!-- ABOUT -->
+<section class="about" id="about">
+
+    <div class="about-content">
+
+        <h3>🌸 About Akshaya Hindi Tuition</h3>
+
+        <p>
+            Akshaya Hindi Tuition provides quality Hindi education
+            through both <strong>Online and Offline classes</strong>.
+        </p>
+
+        <br>
+
+        <p>
+            Our goal is to make Hindi learning
+            <strong>easy, interesting and enjoyable</strong>
+            for every student.
+        </p>
+
+        <br>
+
+        <p>
+            📖 Learn • ✍️ Practice • 🗣️ Speak • ⭐ Improve
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- BENEFITS -->
+<section>
+
+    <div class="section-title">
+
+        <h2>Why Choose Us?</h2>
+
+        <p>
+            Simple and effective Hindi learning
+        </p>
+
+    </div>
+
+
+    <div class="benefits">
+
+        <div class="benefit">
+
+            <div class="benefit-icon">👩‍🏫</div>
+
+            <h3>Personal Attention</h3>
+
+            <p>
+                Individual guidance for better understanding.
+            </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+            <div class="benefit-icon">📚</div>
+
+            <h3>Easy Learning</h3>
+
+            <p>
+                Simple methods to learn Hindi quickly.
+            </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+            <div class="benefit-icon">⭐</div>
+
+            <h3>Regular Practice</h3>
+
+            <p>
+                Continuous practice to improve Hindi skills.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+
+    <h2>📞 Contact Us</h2>
+
+    <div class="contact-info">
+
+        <p>
+            📍 <strong>Address:</strong><br>
+            No. 40, Sivaraj Nagar,<br>
+            Pottinaidu Street,<br>
+            Vandavasi - 604408
+        </p>
+
+        <p>
+            📱 <strong>Phone:</strong>
+            <a href="tel:+919655594873">
+                9655594873
+            </a>
+        </p>
+
+    </div>
+
+
+    <a href="tel:+919655594873"
+       class="btn btn-primary">
+        📞 Call Now
+    </a>
+
+
+    <a href="https://wa.me/919655594873"
+       class="btn btn-whatsapp"
+       target="_blank">
+        💬 WhatsApp
+    </a>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <p>
+        © 2026 <span>Akshaya Hindi Tuition</span>
+        | Online & Offline Hindi Classes
+    </p>
+
+</footer>
+
 </body>
 </html>
-
-
-
